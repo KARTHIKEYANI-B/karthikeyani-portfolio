@@ -997,7 +997,7 @@
     </div>
 
     <footer>
-       
+        
         <p>© 2024 Karthikeyani B. All rights reserved.</p>
     </footer>
 
@@ -1028,10 +1028,23 @@
         function toggleDetails(card) {
             const details = card.querySelector('.project-details');
             const title = card.querySelector('h3');
-            details.classList.toggle('active');
-            title.innerHTML = details.classList.contains('active') 
-                ? title.innerHTML.replace('▼', '▲') 
-                : title.innerHTML.replace('▲', '▼');
+            const isCurrentlyActive = details.classList.contains('active');
+            
+            // First, close ALL project details
+            document.querySelectorAll('.project-details').forEach(detail => {
+                detail.classList.remove('active');
+            });
+            
+            // Reset ALL project titles to ▼
+            document.querySelectorAll('.project-card h3').forEach(h3 => {
+                h3.innerHTML = h3.innerHTML.replace('▲', '▼');
+            });
+            
+            // If the clicked project was closed, open it
+            if (!isCurrentlyActive) {
+                details.classList.add('active');
+                title.innerHTML = title.innerHTML.replace('▼', '▲');
+            }
         }
 
         // Internship details toggle
