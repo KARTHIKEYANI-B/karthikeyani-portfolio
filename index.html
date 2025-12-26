@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karthikeyani B - Java Backend Developer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Code-like Background */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a0a;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-grid::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            animation: gridPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 5%;
+            z-index: 1000;
+            border-bottom: 2px solid #ffffff;
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s;
+            position: relative;
+            padding: 0.5rem 0;
+            font-weight: bold;
+        }
+
+        nav a::before {
+            content: '< ';
+        }
+
+        nav a::after {
+            content: ' />';
+        }
+
+        nav a:hover {
+            color: #ffffff;
+            text-shadow: 0 0 10px #ffffff;
+        }
+
+        /* Container */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 8rem 0 4rem;
+        }
+
+        /* Floating Animation for all elements */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0px) translateX(0px); }
+            25% { transform: translateY(-5px) translateX(2px); }
+            50% { transform: translateY(-3px) translateX(-2px); }
+            75% { transform: translateY(-7px) translateX(1px); }
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(255,255,255,0.5);
+            animation: gentleFloat 6s ease-in-out infinite;
+        }
+
+        .hero h1 .letter {
+            display: inline-block;
+            opacity: 0;
+            animation: fadeInLetter 0.6s ease-in-out forwards, letterFloat 4s ease-in-out infinite;
+            animation-delay: calc(0.05s * var(--i)), calc(0.05s * var(--i) + 0.6s);
+        }
+
+        @keyframes fadeInLetter {
+            0% { 
+                opacity: 0;
+                transform: scale(0.5);
+                filter: blur(10px);
+            }
+            100% { 
+                opacity: 1;
+                transform: scale(1);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes letterFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .hero .title {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s 0.3s forwards, gentleFloat 5s ease-in-out infinite;
+            opacity: 0;
+            color: #cccccc;
+        }
+
+        .hero .title::before {
+            content: '// ';
+            color: #666;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 0.9;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
+
+        /* Scrolling Objective - Slower */
+        .objective-container {
+            width: 100%;
+            max-width: 900px;
+            overflow: hidden;
+            margin: 0 auto 2rem;
+            padding: 1rem 0;
+            position: relative;
+            border: 1px solid #ffffff;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .objective {
+            display: inline-block;
+            white-space: nowrap;
+            animation: scroll-text 40s linear infinite;
+            line-height: 1.8;
+            color: #ffffff;
+        }
+
+        @keyframes scroll-text {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .resume-buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s 0.7s forwards, gentleFloat 5s ease-in-out infinite;
+            opacity: 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            animation: fadeInUp 1s 0.9s forwards, gentleFloat 6s ease-in-out infinite;
+            opacity: 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 0.8rem 1.8rem;
+            background: transparent;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-block;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            transition: left 0.3s;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 0;
+        }
+
+        .btn:hover {
+            color: #0a0a0a;
+            box-shadow: 0 0 20px #ffffff;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            opacity: 0;
+            animation: fadeInScale 0.8s forwards, gentleFloat 7s ease-in-out infinite;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        .section-title::before {
+            content: '/* ';
+            color: #666;
+        }
+
+        .section-title::after {
+            content: ' */';
+            color: #666;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Education Cards */
+        .education-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .edu-card {
+            border: 2px solid #ffffff;
+            padding: 2rem;
+            transition: all 0.3s;
+            position: relative;
+            opacity: 0;
+            animation: slideInLeft 0.8s forwards, float 4s ease-in-out infinite;
+            background: rgba(255,255,255,0.02);
+        }
+
+        .edu-card:nth-child(1) { animation-delay: 0.2s, 0.2s; }
+        .edu-card:nth-child(2) { animation-delay: 0.4s, 0.4s; }
+        .edu-card:nth-child(3) { animation-delay: 0.6s, 0.6s; }
+
+        @keyframes slideInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+        }
+
+        .edu-card:hover {
+            border-color: #ffffff;
+            transform: translateX(10px);
+            box-shadow: 0 0 20px rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.05);
+        }
+
+        .edu-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .edu-card .institution {
+            opacity: 0.7;
+            margin-bottom: 1rem;
+            color: #cccccc;
+        }
+
+        .edu-card .score {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        /* Certificate Cards */
+        .cert-card {
+            border: 2px solid #ffffff;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: slideInLeft 0.8s forwards, float 5s ease-in-out infinite;
+            background: rgba(255,255,255,0.02);
+        }
+
+        .cert-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(255,255,255,0.05) 50%,
+                transparent 70%
+            );
+            animation: movingGradient 6s linear infinite;
+        }
+
+        @keyframes movingGradient {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .cert-card:hover {
+            border-color: #ffffff;
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(255,255,255,0.3);
+        }
+
+        .cert-card h3,
+        .cert-card .institution,
+        .cert-card div {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: #ffffff;
+            box-shadow: 0 0 10px #ffffff;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: slideInRight 0.8s forwards, float 6s ease-in-out infinite;
+            border: 1px solid #ffffff;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.02);
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.2s, 0.2s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.4s, 0.4s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.6s, 0.6s; }
+
+        @keyframes slideInRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3.5rem;
+            top: 0;
+            width: 15px;
+            height: 15px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            background: #0a0a0a;
+            box-shadow: 0 0 10px #ffffff;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 10px #ffffff; }
+            50% { transform: scale(1.2); box-shadow: 0 0 20px #ffffff; }
+        }
+
+        .timeline-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .timeline-item .company {
+            opacity: 0.7;
+            margin-bottom: 0.5rem;
+            color: #cccccc;
+        }
+
+        .timeline-item ul {
+            margin-left: 1.5rem;
+            line-height: 1.8;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            border: 2px solid #ffffff;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeInScale 0.8s forwards, float 5s ease-in-out infinite;
+            background: rgba(255,255,255,0.02);
+        }
+
+        .project-card:nth-child(1) { animation-delay: 0.2s, 0.2s; }
+        .project-card:nth-child(2) { animation-delay: 0.4s, 0.4s; }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+
+        .project-card:hover::before {
+            width: 500px;
+            height: 500px;
+        }
+
+        .project-card:hover {
+            border-color: #ffffff;
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(255,255,255,0.3);
+        }
+
+        .project-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+            color: #ffffff;
+        }
+
+        .project-card .tech-stack {
+            margin-top: 1rem;
+            opacity: 0.7;
+            position: relative;
+            z-index: 1;
+            color: #cccccc;
+        }
+
+        .project-details {
+            display: none;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #ffffff;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-details.active {
+            display: block;
+            animation: expandDown 0.5s ease;
+        }
+
+        @keyframes expandDown {
+            from {
+                opacity: 0;
+                max-height: 0;
+            }
+            to {
+                opacity: 1;
+                max-height: 1000px;
+            }
+        }
+
+        .video-container {
+            margin: 1rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .video-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(255,0,0,0.8);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s;
+            border: 2px solid #ff0000;
+        }
+
+        .video-link:hover {
+            background: rgba(255,0,0,1);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255,0,0,0.5);
+        }
+
+        /* Skills Section - Scrolling like objective */
+        .skills-scroll-container {
+            width: 100%;
+            overflow: hidden;
+            margin: 2rem 0;
+            padding: 2rem 0;
+            border: 2px solid #ffffff;
+            background: rgba(255,255,255,0.02);
+        }
+
+        .skills-scroll {
+            display: flex;
+            animation: scrollSkills 30s linear infinite;
+            gap: 3rem;
+        }
+
+        @keyframes scrollSkills {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .skill-category {
+            flex-shrink: 0;
+            border: 2px solid #ffffff;
+            padding: 2rem;
+            width: 250px;
+            background: rgba(255,255,255,0.05);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .skill-category h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .skill-category ul {
+            list-style: none;
+        }
+
+        .skill-category li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s;
+            color: #cccccc;
+        }
+
+        .skill-category li:hover {
+            padding-left: 1rem;
+            border-bottom-color: #ffffff;
+            color: #ffffff;
+        }
+
+        /* Contact Section - Scrolling */
+        .contact-scroll-container {
+            width: 100%;
+            overflow: hidden;
+            margin: 2rem 0;
+            padding: 2rem 0;
+            border: 2px solid #ffffff;
+            background: rgba(255,255,255,0.02);
+        }
+
+        .contact-scroll {
+            display: flex;
+            animation: scrollContacts 25s linear infinite;
+            gap: 2rem;
+        }
+
+        @keyframes scrollContacts {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .contact-card {
+            flex-shrink: 0;
+            border: 2px solid #ffffff;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            width: 300px;
+            background: rgba(255,255,255,0.05);
+            animation: float 5s ease-in-out infinite;
+        }
+
+        .contact-card:hover {
+            border-color: #ffffff;
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255,255,255,0.3);
+        }
+
+        .contact-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .contact-card a {
+            color: #cccccc;
+            text-decoration: none;
+            word-break: break-word;
+        }
+
+        .contact-card a:hover {
+            color: #ffffff;
+            text-shadow: 0 0 10px #ffffff;
+        }
+
+        .contact-card i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+            color: #ffffff;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 2px solid #ffffff;
+            opacity: 0.7;
+            animation: gentleFloat 8s ease-in-out infinite;
+        }
+
+        footer nav {
+            position: relative;
+            background: transparent;
+            border: none;
+            padding: 1rem 0;
+            margin-bottom: 1rem;
+        }
+
+        footer nav ul {
+            gap: 2rem;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            opacity: 0.5;
+            color: #ffffff;
+            font-size: 2rem;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            nav ul { flex-direction: column; gap: 1rem; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .cta-buttons { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section id="home" class="hero">
+            
+            <h1 id="animatedName"></h1>
+            <div class="title">Java Backend Developer</div>
+            
+            <div class="objective-container">
+                <p class="objective">
+                    Aspiring Java Backend Developer with hands-on experience in full-stack development, 
+                    seeking to leverage technical expertise in Java, SQL, and RESTful APIs to build scalable 
+                    server-side applications. Eager to contribute to innovative projects while continuously 
+                    learning in a dynamic organization.
+                </p>
+            </div>
+            
+            <div class="resume-buttons">
+                <a href="resume/Karthikeyani_B_Resume.pdf" class="btn" style="background: #00ff00; color: #0a0a0a; border-color: #00ff00;" download>Download Resume</a>
+                <a href="resume/Karthikeyani_B_Resume.pdf" class="btn" target="_blank">View Resume</a>
+            </div>
+            
+            <div class="cta-buttons">
+                <a href="#education" class="btn">Education</a>
+                <a href="#experience" class="btn">Internships</a>
+                <a href="#projects" class="btn">View Projects</a>
+                <a href="#contact" class="btn">Contact Me</a>
+            </div>
+            
+            <div style="margin-top: 3rem; max-width: 800px; padding: 2rem; border: 2px solid #ffffff; background: rgba(255,255,255,0.02); animation: fadeInUp 1s 1.1s forwards, gentleFloat 7s ease-in-out infinite; opacity: 0;">
+                <h3 style="font-size: 1.3rem; margin-bottom: 1rem; color: #ffffff; text-align: center;">// About Me</h3>
+                <p style="line-height: 1.8; color: #cccccc; text-align: center;">
+                    I'm a <strong style="color: #ffffff;">Biomedical Engineering student</strong> with an unconventional path. 
+                    While my degree focuses on healthcare technology, my <strong style="color: #ffffff;">true passion lies in IT and software development</strong>. 
+                    From the moment I wrote my first line of code, I knew this was where I belonged. 
+                    I've dedicated countless hours to mastering <strong style="color: #ffffff;">Java, SQL, and full-stack development</strong>, 
+                    turning my passion into practical skills through internships and real-world projects. 
+                    My goal is to bridge my analytical background with software engineering to build <strong style="color: #ffffff;">scalable, 
+                    impactful solutions</strong> in the tech industry.
+                </p>
+            </div>
+        </section>
+
+        <section id="education">
+            <h2 class="section-title">Education & Certifications</h2>
+            <h3 style="text-align: center; margin-bottom: 2rem; font-size: 1.5rem; opacity: 0.9; color: #cccccc;">// Education</h3>
+            <div class="education-grid">
+                <div class="edu-card">
+                    <h3>B.E. Biomedical Engineering</h3>
+                    <div class="institution">Selvam College of Technology, Namakkal</div>
+                    <div class="score">CGPA: 8.25/10 (Till 6th Semester)</div>
+                    <div style="opacity: 0.7; margin-top: 0.5rem;">2022 - 2026</div>
+                </div>
+                <div class="edu-card">
+                    <h3>Higher Secondary Certificate (HSC)</h3>
+                    <div class="institution">Amala Girls Higher Secondary School, Musiri</div>
+                    <div class="score">Percentage: 86%</div>
+                    <div style="opacity: 0.7; margin-top: 0.5rem;">2020 - 2022</div>
+                </div>
+                <div class="edu-card">
+                    <h3>Secondary School Leaving Certificate (SSLC)</h3>
+                    <div class="institution">Amala Girls Higher Secondary School, Musiri</div>
+                    <div class="score">Percentage: 91.6%</div>
+                    <div style="opacity: 0.7; margin-top: 0.5rem;">2020</div>
+                </div>
+            </div>
+
+            <h3 style="text-align: center; margin: 4rem 0 2rem; font-size: 1.5rem; opacity: 0.9; color: #cccccc;">// Certifications</h3>
+            <div class="education-grid">
+                <div class="cert-card" onclick="openCertificate('cert1')">
+                    <h3>Software Project Management</h3>
+                    <div class="institution">NPTEL</div>
+                    <div style="margin-top: 1rem; opacity: 0.7; font-size: 0.9rem;">Click to view certificate</div>
+                </div>
+                <div class="cert-card" onclick="openCertificate('cert2')">
+                    <h3>SQL and Relational Databases</h3>
+                    <div class="institution">IBM Developer Skills Network</div>
+                    <div style="margin-top: 1rem; opacity: 0.7; font-size: 0.9rem;">Click to view certificate</div>
+                </div>
+                <div class="cert-card" onclick="openCertificate('cert3')">
+                    <h3>Introduction to Computer Science</h3>
+                    <div class="institution">Saylor Academy</div>
+                    <div style="margin-top: 1rem; opacity: 0.7; font-size: 0.9rem;">Click to view certificate</div>
+                </div>
+                
+            </div>
+
+            <!-- Certificate Modal -->
+            <div id="certificateModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 10000; justify-content: center; align-items: center;">
+                <div style="position: relative; max-width: 90%; max-height: 90%; background: #0a0a0a; padding: 2rem; border: 2px solid #ffffff; border-radius: 8px;">
+                    <button onclick="closeCertificate()" style="position: absolute; top: 1rem; right: 1rem; background: #ffffff; color: #0a0a0a; border: none; padding: 0.5rem 1rem; cursor: pointer; font-size: 1.2rem; border-radius: 4px; transition: all 0.3s; font-family: 'Courier New', monospace; font-weight: bold;">✕ Close</button>
+                    <img id="certificateImage" src="" alt="Certificate" style="max-width: 100%; max-height: 80vh; object-fit: contain;">
+                    <div style="text-align: center; margin-top: 1rem;">
+                        <button onclick="closeCertificate()" style="background: #ffffff; color: #0a0a0a; border: none; padding: 0.8rem 2rem; cursor: pointer; font-size: 1rem; border-radius: 4px; transition: all 0.3s; font-family: 'Courier New', monospace; font-weight: bold;">Close</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2 class="section-title">Internship Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item" onclick="toggleInternDetails(this)" style="cursor: pointer;">
+                    <h3>Java Full Stack Web Development Intern ▼</h3>
+                    <div class="company">Gateway Software Solution | 15 Days</div>
+                    <div class="intern-details" style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #ffffff; line-height: 1.8;">
+                        <p><strong>Duration:</strong> 15 Days Intensive Training Program</p>
+                        <p style="margin-top: 0.5rem;"><strong>Key Responsibilities & Learnings:</strong></p>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                            <li><strong>Full-Stack Development:</strong> Gained hands-on experience in building complete web applications from frontend to backend integration</li>
+                            <li><strong>Web Application Development:</strong> Worked on real-world web application projects, implementing core features and functionalities</li>
+                            <li><strong>Frontend Technologies:</strong> Developed responsive user interfaces using HTML, CSS, and JavaScript</li>
+                            <li><strong>Backend Development:</strong> Built server-side logic using Java, implemented business logic and API endpoints</li>
+                            <li><strong>Database Integration:</strong> Connected web applications with databases using JDBC for data persistence</li>
+                            <li><strong>Project Collaboration:</strong> Worked in a team environment, participating in code reviews and collaborative development</li>
+                        </ul>
+                        <p style="margin-top: 1rem;"><strong>Skills Acquired:</strong> Java full-stack development, Web application architecture, Frontend-Backend integration, Team collaboration in professional software development environment</p>
+                    </div>
+                </div>
+                <div class="timeline-item" onclick="toggleInternDetails(this)" style="cursor: pointer;">
+                    <h3>Java Programming Intern ▼</h3>
+                    <div class="company">Selvam College of Technology, Namakkal | 3 Months</div>
+                    <div class="intern-details" style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #00ff00; line-height: 1.8;">
+                        <p><strong>Duration:</strong> 3 Months Comprehensive Java Training</p>
+                        <p style="margin-top: 0.5rem;"><strong>Key Responsibilities & Learnings:</strong></p>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                            <li><strong>Core Java Fundamentals:</strong> Mastered Java syntax, data types, control structures, and exception handling</li>
+                            <li><strong>Object-Oriented Programming:</strong> Developed strong understanding of OOP concepts including encapsulation, inheritance, polymorphism, and abstraction</li>
+                            <li><strong>Application Development:</strong> Built multiple Java applications demonstrating OOP principles and design patterns</li>
+                            <li><strong>Data Structures:</strong> Implemented various data structures like arrays, linked lists, stacks, queues, and hash maps</li>
+                            <li><strong>Problem Solving:</strong> Solved complex programming challenges to strengthen algorithmic thinking and coding skills</li>
+                            <li><strong>Code Quality:</strong> Learned best practices for writing clean, maintainable, and efficient Java code</li>
+                        </ul>
+                        <p style="margin-top: 1rem;"><strong>Skills Acquired:</strong> Core Java programming, Object-oriented design, Data structures and algorithms, Problem-solving methodologies, Clean code practices</p>
+                    </div>
+                </div>
+                <div class="timeline-item" onclick="toggleInternDetails(this)" style="cursor: pointer;">
+                    <h3>MySQL Intern ▼</h3>
+                    <div class="company">Selvam College of Technology, Namakkal | 3 Months</div>
+                    <div class="intern-details" style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #00ff00; line-height: 1.8;">
+                        <p><strong>Duration:</strong> 3 Months Database Management Training</p>
+                        <p style="margin-top: 0.5rem;"><strong>Key Responsibilities & Learnings:</strong></p>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                            <li><strong>SQL Query Mastery:</strong> Gained expertise in writing complex SQL queries including SELECT, INSERT, UPDATE, DELETE operations</li>
+                            <li><strong>Database Design:</strong> Learned to design normalized database schemas following best practices and normalization principles</li>
+                            <li><strong>Relational Database Management:</strong> Worked extensively with MySQL to manage and maintain relational databases</li>
+                            <li><strong>Advanced SQL Concepts:</strong> Implemented joins, subqueries, aggregate functions, views, stored procedures, and triggers</li>
+                            <li><strong>Database Optimization:</strong> Learned query optimization techniques and indexing strategies for performance improvement</li>
+                            <li><strong>Data Integrity:</strong> Implemented constraints, relationships, and transactions to ensure data consistency and integrity</li>
+                        </ul>
+                        <p style="margin-top: 1rem;"><strong>Skills Acquired:</strong> SQL query writing and optimization, Database schema design, Relational database management, Data modeling, MySQL administration, Database performance tuning</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2 class="section-title">Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card" onclick="toggleDetails(this)">
+                    <h3>Hospital Management System ▼</h3>
+                    <div class="tech-stack"><strong>Technologies:</strong> Java, SQL, JDBC</div>
+                    <div class="project-details">
+                        <p><strong>Overview:</strong> A comprehensive hospital management system designed to streamline healthcare operations and improve patient care efficiency.</p>
+                        
+                        <p><strong>Key Features:</strong></p>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                            <li>Patient Registration Module: Complete patient information management with secure data storage</li>
+                            <li>Appointment Scheduling: Automated scheduling system for managing doctor-patient appointments</li>
+                            <li>Medical Records Management: Digital storage and retrieval of patient medical histories, prescriptions, and test results</li>
+                            <li>Database Integration: Robust MySQL database with JDBC connectivity for real-time data operations</li>
+                        </ul>
+                        
+                        <p style="margin-top: 1rem;"><strong>Technical Implementation:</strong></p>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                            <li>Built using Java with Object-Oriented Programming principles</li>
+                            <li>Implemented CRUD operations for managing hospital data</li>
+                            <li>Designed normalized database schema for efficient data management</li>
+                            <li>Created user-friendly interfaces for different user roles (admin, doctor, receptionist)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="project-card" onclick="toggleDetails(this)">
+                    <h3>Cliqguarder – Zoho Cliq Extension ▼</h3>
+                    <div class="tech-stack"><strong>Technologies:</strong> Java, RESTful APIs, JavaScript, HTML, CSS</div>
+                    <div class="project-details">
+                        <p><strong>Overview:</strong> A full-stack security extension developed for Zoho Cliq platform as part of the Zoho Cliq Extension Competition, focusing on enhancing team communication security.</p>
+                        
+                        <div class="video-container">
+                            <a href="https://youtu.be/HAu0ujtg40A?si=CMcSfFYAtD0O43ne" target="_blank" class="video-link">
+                                <i class="fab fa-youtube"></i>
+                                Watch Project Demo Video
+                            </a>
+                        </div>
+                        
+                        <p><strong>Key Features:</strong></p>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                            <li>Backend API Development: Built robust RESTful APIs using Java for seamless integration with Zoho Cliq platform</li>
+                            <li>Security Implementation: Integrated advanced security features to protect sensitive team communications</li>
+                            <li>User Authentication: Implemented secure authentication mechanisms with session management</li>
+                            <li>Real-time Integration: Connected extension with Zoho platform APIs for real-time data synchronization</li>
+                            <li>Frontend Interface: Designed intuitive user interface using HTML, CSS, and JavaScript</li>
+                        </ul>
+                        
+                        <p style="margin-top: 1rem;"><strong>Technical Highlights:</strong></p>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                            <li>Developed RESTful web services following industry best practices</li>
+                            <li>Implemented secure API endpoints with proper authentication and authorization</li>
+                            <li>Created responsive frontend that integrates seamlessly with Zoho Cliq interface</li>
+                            <li>Utilized JavaScript for dynamic content and user interactions</li>
+                            <li>Ensured data encryption and secure communication protocols</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-scroll-container">
+                <div class="skills-scroll">
+                    <div class="skill-category">
+                        <h3>Programming</h3>
+                        <ul>
+                            <li>Java</li>
+                            <li>SQL</li>
+                            <li>JavaScript</li>
+                            <li>Spring</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Web Technologies</h3>
+                        <ul>
+                            <li>HTML</li>
+                            <li>CSS</li>
+                            <li>RESTful APIs</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Database & Tools</h3>
+                        <ul>
+                            <li>MySQL</li>
+                            <li>GitHub</li>
+                            <li>Eclipse</li>
+                            <li>VS Code</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Soft Skills</h3>
+                        <ul style="list-style: none;">
+                            <li style="margin-bottom: 1rem; border: none;">
+                                <strong>Leadership Mindset</strong>
+                                <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.3rem;">Led team projects during internships</p>
+                            </li>
+                            <li style="margin-bottom: 1rem; border: none;">
+                                <strong>Team Collaboration</strong>
+                                <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.3rem;">Worked in cross-functional teams</p>
+                            </li>
+                            <li style="border: none;">
+                                <strong>Resilience</strong>
+                                <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.3rem;">Overcame technical challenges</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Duplicate for seamless loop -->
+                    <div class="skill-category">
+                        <h3>Programming</h3>
+                        <ul>
+                            <li>Java</li>
+                            <li>SQL</li>
+                            <li>JavaScript</li>
+                            <li>Spring</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Web Technologies</h3>
+                        <ul>
+                            <li>HTML</li>
+                            <li>CSS</li>
+                            <li>RESTful APIs</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Database & Tools</h3>
+                        <ul>
+                            <li>MySQL</li>
+                            <li>GitHub</li>
+                            <li>Eclipse</li>
+                            <li>VS Code</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Soft Skills</h3>
+                        <ul style="list-style: none;">
+                            <li style="margin-bottom: 1rem; border: none;">
+                                <strong>Leadership Mindset</strong>
+                                <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.3rem;">Led team projects during internships</p>
+                            </li>
+                            <li style="margin-bottom: 1rem; border: none;">
+                                <strong>Team Collaboration</strong>
+                                <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.3rem;">Worked in cross-functional teams</p>
+                            </li>
+                            <li style="border: none;">
+                                <strong>Resilience</strong>
+                                <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.3rem;">Overcame technical challenges</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2 class="section-title">Contact Me</h2>
+            <div class="contact-scroll-container">
+                <div class="contact-scroll">
+                    <div class="contact-card">
+                        <i class="fas fa-phone"></i>
+                        <h3>Phone</h3>
+                        <a href="tel:+917010475273">+91-7010475273</a>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Email</h3>
+                        <a href="mailto:karthikeyanib.dev@gmail.com">karthikeyanib.dev@gmail.com</a>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fab fa-linkedin"></i>
+                        <h3>LinkedIn</h3>
+                        <a href="https://www.linkedin.com/in/karthikeyanib" target="_blank">linkedin.com/in/karthikeyanib</a>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fab fa-github"></i>
+                        <h3>GitHub</h3>
+                        <a href="https://github.com/KARTHIKEYANI-B" target="_blank">github.com/KARTHIKEYANI-B</a>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3>Location</h3>
+                        <p>Karur, 639105, Tamil Nadu, India</p>
+                    </div>
+                    <!-- Duplicate for seamless loop -->
+                    <div class="contact-card">
+                        <i class="fas fa-phone"></i>
+                        <h3>Phone</h3>
+                        <a href="tel:+917010475273">+91-7010475273</a>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Email</h3>
+                        <a href="mailto:karthikeyanib.dev@gmail.com">karthikeyanib.dev@gmail.com</a>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fab fa-linkedin"></i>
+                        <h3>LinkedIn</h3>
+                        <a href="https://www.linkedin.com/in/karthikeyanib" target="_blank">linkedin.com/in/karthikeyanib</a>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fab fa-github"></i>
+                        <h3>GitHub</h3>
+                        <a href="https://github.com/KARTHIKEYANI-B" target="_blank">github.com/KARTHIKEYANI-B</a>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3>Location</h3>
+                        <p>Karur, 639105, Tamil Nadu, India</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 4rem; padding: 3rem; border: 2px solid #ffffff; background: rgba(255,255,255,0.02); animation: fadeInUp 1s 1.2s forwards, gentleFloat 8s ease-in-out infinite; opacity: 0;">
+                <h3 style="text-align: center; font-size: 1.8rem; margin-bottom: 2rem; color: #ffffff;">// My Code Philosophy</h3>
+                <pre style="font-family: 'Courier New', monospace; font-size: 1rem; line-height: 1.8; color: #ffffff; text-align: left; overflow-x: auto;">
+<span style="color: #999;">IF</span> (goal <span style="color: #999;">is</span> high-impact career growth)
+<span style="color: #999;">THEN</span>
+{
+    showUpDaily();
+    studyWithIntent();
+    practiceUntilConfident();
+    failFastAndFix();
+    reviewAndRefactor();
+    repeatRelentlessly();
+}
+<span style="color: #999;">ELSE</span>
+{
+    resetMindset();
+    eliminateDistractions();
+    restartWithDiscipline();
+}
+                </pre>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <p style="color: #cccccc;">© 2024 Karthikeyani B. All rights reserved.</p>
+    </footer>
+
+    <div class="scroll-indicator">▼</div>
+
+    <script>
+        // Animate name with letter-by-letter effect
+        const name = "KARTHIKEYANI B.";
+        const nameElement = document.getElementById('animatedName');
+        name.split('').forEach((letter, index) => {
+            const span = document.createElement('span');
+            span.className = 'letter';
+            span.style.setProperty('--i', index);
+            span.textContent = letter === ' ' ? '\u00A0' : letter;
+            nameElement.appendChild(span);
+        });
+
+        // Certificate paths
+        const certificates = {
+            cert1: 'certificates/karthikeyani_b-software management certifucate.jpg.png',
+            cert2: 'certificates/karthikeyanib-sql.png',
+            cert3: 'certificates/karthikeyani_b-introduction to computer science.png.png',
+            cert4: 'certificates/java-fullstack-internship.jpg'
+        };
+
+        function openCertificate(certId) {
+            const modal = document.getElementById('certificateModal');
+            const img = document.getElementById('certificateImage');
+            img.src = certificates[certId];
+            modal.style.display = 'flex';
+        }
+
+        function closeCertificate() {
+            const modal = document.getElementById('certificateModal');
+            modal.style.display = 'none';
+        }
+
+        // Close modal on outside click
+        document.getElementById('certificateModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeCertificate();
+            }
+        });
+
+        function toggleDetails(card) {
+            const details = card.querySelector('.project-details');
+            const title = card.querySelector('h3');
+            
+            details.classList.toggle('active');
+            
+            if (details.classList.contains('active')) {
+                title.innerHTML = title.innerHTML.replace('▼', '▲');
+            } else {
+                title.innerHTML = title.innerHTML.replace('▲', '▼');
+            }
+        }
+
+        function toggleInternDetails(item) {
+            const details = item.querySelector('.intern-details');
+            const title = item.querySelector('h3');
+            
+            if (details.style.display === 'none' || details.style.display === '') {
+                details.style.display = 'block';
+                details.style.animation = 'expandDown 0.5s ease';
+                title.innerHTML = title.innerHTML.replace('▼', '▲');
+            } else {
+                details.style.display = 'none';
+                title.innerHTML = title.innerHTML.replace('▲', '▼');
+            }
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Hide scroll indicator on scroll
+        window.addEventListener('scroll', () => {
+            const indicator = document.querySelector('.scroll-indicator');
+            if (window.scrollY > 100) {
+                indicator.style.opacity = '0';
+            } else {
+                indicator.style.opacity = '0.5';
+            }
+        });
+    </script>
+</body>
+</html>
