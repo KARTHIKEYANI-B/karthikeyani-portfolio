@@ -19,7 +19,7 @@
             overflow-x: hidden;
         }
 
-        /* Code-like Background */
+        /* Code-like Background with Java code snippets */
         .bg-grid {
             position: fixed;
             top: 0;
@@ -29,23 +29,43 @@
             background: #0a0a0a;
             pointer-events: none;
             z-index: 0;
+            overflow: hidden;
         }
 
         .bg-grid::before {
+            content: 'public class Main { \A    public static void main(String[] args) { \A        System.out.println("Hello World"); \A    } \A} \A\A if (success == true) { \A    continue; \A } else { \A    retry(); \A } \A\A for(int i=0; i<10; i++) { \A    execute(); \A } \A\A while(learning) { \A    improve(); \A    practice(); \A } \A\A try { \A    achieve(goals); \A } catch(Exception e) { \A    learnFromFailure(e); \A }';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: rgba(255,255,255,0.03);
+            white-space: pre;
+            line-height: 1.8;
+            animation: codeScroll 60s linear infinite;
+            overflow: hidden;
+        }
+
+        @keyframes codeScroll {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-50%, -50%); }
+        }
+
+        .bg-grid::after {
             content: '';
             position: absolute;
             width: 100%;
             height: 100%;
             background: 
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 20px 20px;
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
             animation: gridPulse 4s ease-in-out infinite;
         }
 
         @keyframes gridPulse {
             0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.6; }
+            50% { opacity: 0.5; }
         }
 
         /* Navigation */
@@ -758,10 +778,223 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            nav ul { flex-direction: column; gap: 1rem; }
-            .projects-grid { grid-template-columns: 1fr; }
-            .cta-buttons { flex-direction: column; }
+            .hero h1 { 
+                font-size: 2.2rem; 
+                margin-bottom: 1.5rem;
+            }
+            
+            nav {
+                padding: 1rem 3%;
+            }
+            
+            nav ul { 
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 1rem;
+                justify-content: center;
+            }
+            
+            nav a {
+                font-size: 0.9rem;
+                padding: 0.4rem 0;
+            }
+            
+            .container {
+                padding: 0 1.5rem;
+            }
+            
+            section {
+                padding: 7rem 0 3rem;
+                min-height: auto;
+            }
+            
+            .hero .title {
+                font-size: 1.2rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .objective-container {
+                max-width: 100%;
+                padding: 1rem;
+                font-size: 0.95rem;
+            }
+            
+            .objective {
+                font-size: 0.95rem;
+                line-height: 1.7;
+            }
+            
+            .resume-buttons,
+            .cta-buttons {
+                flex-direction: column;
+                gap: 1rem;
+                width: 100%;
+            }
+            
+            .btn {
+                width: 100%;
+                padding: 1rem;
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+            
+            .edu-card,
+            .cert-card,
+            .timeline-item,
+            .project-card {
+                padding: 1.5rem;
+            }
+            
+            .edu-card h3,
+            .cert-card h3,
+            .project-card h3 {
+                font-size: 1.3rem;
+            }
+            
+            .timeline {
+                padding-left: 2.5rem;
+            }
+            
+            .timeline-item::before {
+                left: -3rem;
+                width: 12px;
+                height: 12px;
+            }
+            
+            .timeline-item h3 {
+                font-size: 1.2rem;
+            }
+            
+            .projects-grid { 
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .skills-scroll-container,
+            .contact-scroll-container {
+                padding: 1.5rem 0;
+            }
+            
+            .skill-category,
+            .contact-card {
+                width: 240px;
+                padding: 1.5rem;
+            }
+            
+            .skill-category h3,
+            .contact-card h3 {
+                font-size: 1.2rem;
+            }
+            
+            .contact-card i {
+                font-size: 2rem;
+            }
+            
+            .scroll-indicator {
+                font-size: 1.5rem;
+                bottom: 1rem;
+            }
+            
+            footer {
+                padding: 2rem 1rem;
+            }
+            
+            footer nav ul {
+                gap: 1.2rem;
+                flex-wrap: wrap;
+            }
+            
+            footer nav a {
+                font-size: 0.9rem;
+            }
+            
+            /* About Me section mobile */
+            .hero > div[style*="margin-top: 3rem"] {
+                margin-top: 2rem !important;
+                padding: 1.5rem !important;
+            }
+            
+            .hero > div h3 {
+                font-size: 1.3rem !important;
+            }
+            
+            .hero > div p {
+                font-size: 1rem !important;
+                line-height: 1.7 !important;
+            }
+            
+            /* Philosophy section mobile */
+            #contact > div[style*="margin-top: 4rem"] {
+                margin-top: 2rem !important;
+                padding: 1.5rem !important;
+            }
+            
+            #contact > div h3 {
+                font-size: 1.4rem !important;
+            }
+            
+            #contact > div pre {
+                font-size: 0.9rem !important;
+                line-height: 1.7 !important;
+                overflow-x: auto;
+            }
+            
+            /* Better touch targets */
+            .cert-card,
+            .timeline-item,
+            .project-card {
+                min-height: 60px;
+            }
+            
+            /* Improve readability */
+            p, li, div {
+                font-size: 1rem;
+                line-height: 1.7;
+            }
+            
+            /* Keep background code visible but subtle */
+            .bg-grid::before {
+                font-size: 11px;
+                opacity: 0.5;
+            }
+        }
+        
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            nav a {
+                font-size: 0.85rem;
+            }
+            
+            .section-title {
+                font-size: 1.7rem;
+            }
+            
+            .skill-category,
+            .contact-card {
+                width: 200px;
+                padding: 1.2rem;
+            }
+            
+            .btn {
+                padding: 0.9rem;
+                font-size: 0.95rem;
+            }
+            
+            .objective {
+                font-size: 0.9rem;
+            }
+            
+            #contact > div pre {
+                font-size: 0.8rem !important;
+            }
         }
     </style>
 </head>
@@ -781,7 +1014,9 @@
 
     <div class="container">
         <section id="home" class="hero">
-            
+            <div style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.8; color: #cccccc; font-style: italic; animation: fadeInUp 1s 0.1s forwards; opacity: 0;">
+                "Discipline beats motivation. Systems beat shortcuts."
+            </div>
             <h1 id="animatedName"></h1>
             <div class="title">Java Backend Developer</div>
             
@@ -795,8 +1030,8 @@
             </div>
             
             <div class="resume-buttons">
-                <a href="Karthikeyani_B_Resume.pdf" class="btn" style="background: #00ff00; color: #0a0a0a; border-color: #00ff00;" download>Download Resume</a>
-                <a href="Karthikeyani_B_Resume.pdf" class="btn" target="_blank">View Resume</a>
+                <a href="Karthikeyani_B_Resume.jpg" class="btn" style="background: #00ff00; color: #0a0a0a; border-color: #00ff00;" download>Download Resume</a>
+                <a href="Karthikeyani_B_Resume.jpg" class="btn" target="_blank">View Resume</a>
             </div>
             
             <div class="cta-buttons">
@@ -826,7 +1061,7 @@
             <div class="education-grid">
                 <div class="edu-card">
                     <h3>B.E. Biomedical Engineering</h3>
-                    <div class="institution">Selvam College of Technology, Namakkal</div>
+                    <div class="institution">Schem College of Technology, Namakkal</div>
                     <div class="score">CGPA: 8.25/10 (Till 6th Semester)</div>
                     <div style="opacity: 0.7; margin-top: 0.5rem;">2022 - 2026</div>
                 </div>
@@ -914,7 +1149,7 @@
                     </div>
                 </div>
                 <div class="timeline-item" onclick="toggleInternDetails(this)" style="cursor: pointer;">
-                    <h3>MySQL Intern ▼</h3>
+                    <h3>SQL Intern ▼</h3>
                     <div class="company">Selvam College of Technology, Namakkal | 3 Months</div>
                     <div class="intern-details" style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #00ff00; line-height: 1.8;">
                         <p><strong>Duration:</strong> 3 Months Database Management Training</p>
@@ -1200,12 +1435,12 @@
             nameElement.appendChild(span);
         });
 
-        // Certificate paths
+        // Certificate paths - UPDATE THESE WITH YOUR ACTUAL FILE NAMES
         const certificates = {
             cert1: 'karthikeyani_b-software management certifucate.jpg.png',
             cert2: 'karthikeyanib-sql.png',
             cert3: 'karthikeyani_b-introduction to computer science.png.png',
-            cert4: 'java-fullstack-internship.jpg'
+            
         };
 
         function openCertificate(certId) {
@@ -1276,5 +1511,4 @@
         });
     </script>
 </body>
-
 </html>
