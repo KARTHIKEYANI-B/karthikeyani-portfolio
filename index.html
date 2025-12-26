@@ -15,15 +15,6 @@
             --accent-color: #ffffff;
         }
 
-        [data-theme="light"] {
-            --bg-primary: #ffffff;
-            --bg-secondary: #f5f5f5;
-            --text-primary: #000000;
-            --text-secondary: #333333;
-            --border-color: #000000;
-            --accent-color: #000000;
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -625,12 +616,8 @@
         }
     </style>
 </head>
-<body data-theme="dark">
+<body>
     <div class="bg-grid"></div>
-    
-    <div class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
-        <i class="fas fa-adjust"></i>
-    </div>
 
     <nav>
         <ul>
@@ -966,26 +953,11 @@
     </footer>
 
     <script>
-        // Theme Toggle
-        function toggleTheme() {
-            const body = document.body;
-            const currentTheme = body.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            body.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-        }
-
-        // Load saved theme
-        window.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            document.body.setAttribute('data-theme', savedTheme);
-        });
-
         // Certificate handling
         const certificates = {
             cert1: 'karthikeyani_b-software management certifucate.jpg.png',
             cert2: 'karthikeyanib-sql.png',
-            cert3: 'karthikeyani_b-software management certifucate.jpg.png'
+            cert3: 'karthikeyani_b-introduction to computer science.png.png'
         };
 
         function openCertificate(certId) {
