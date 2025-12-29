@@ -338,10 +338,10 @@
         }
 
         /* Projects */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2rem;
+        .project-section-1,
+        .project-section-2 {
+            max-width: 900px;
+            margin: 0 auto 2rem auto;
         }
 
         .project-card {
@@ -364,7 +364,8 @@
             font-weight: bold;
         }
 
-        .project-details {
+        .project-details-1,
+        .project-details-2 {
             display: none;
             margin-top: 1rem;
             padding-top: 1rem;
@@ -372,7 +373,8 @@
             line-height: 1.8;
         }
 
-        .project-details.active {
+        .project-details-1.active,
+        .project-details-2.active {
             display: block;
         }
 
@@ -613,8 +615,9 @@
                 font-size: 1.6rem;
             }
             
-            .projects-grid {
-                grid-template-columns: 1fr;
+            .project-section-1,
+            .project-section-2 {
+                max-width: 100%;
             }
             
             .skills-grid,
@@ -703,8 +706,8 @@
             </div>
             
             <div class="resume-buttons">
-                <a href="Karthikeyani_B_Resume.jpg" class="btn" download><i class="fas fa-download"></i> Download Resume</a>
-                <a href="Karthikeyani_B_Resume.jpg" class="btn" target="_blank"><i class="fas fa-eye"></i> View Resume</a>
+                <a href="karthikeyani_resume.png" class="btn" download><i class="fas fa-download"></i> Download Resume</a>
+                <a href="karthikeyani_resume.png" class="btn" target="_blank"><i class="fas fa-eye"></i> View Resume</a>
             </div>
             
             <div class="about-section">
@@ -834,11 +837,13 @@
 
         <section id="projects">
             <h2 class="section-title">Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card" onclick="toggleDetails(this)">
+            
+            <!-- Project 1 Section -->
+            <div class="project-section-1">
+                <div class="project-card project-1" onclick="toggleProject1()">
                     <h3><i class="fas fa-code"></i> Hospital Management System ▼</h3>
                     <div class="tech-stack"><strong>Technologies:</strong> Java, SQL, JDBC</div>
-                    <div class="project-details">
+                    <div class="project-details-1">
                         <p><strong>Overview:</strong> A comprehensive hospital management system designed to streamline healthcare operations and improve patient care efficiency.</p>
                         
                         <p><strong>Key Features:</strong></p>
@@ -858,11 +863,14 @@
                         </ul>
                     </div>
                 </div>
-                
-                <div class="project-card" onclick="toggleDetails(this)">
+            </div>
+            
+            <!-- Project 2 Section -->
+            <div class="project-section-2">
+                <div class="project-card project-2" onclick="toggleProject2()">
                     <h3><i class="fas fa-code"></i> Cliqguarder – Zoho Cliq Extension ▼</h3>
                     <div class="tech-stack"><strong>Technologies:</strong> Java, RESTful APIs, JavaScript, HTML, CSS</div>
-                    <div class="project-details">
+                    <div class="project-details-2">
                         <p><strong>Overview:</strong> A full-stack security extension developed for Zoho Cliq platform as part of the Zoho Cliq Extension Competition, focusing on enhancing team communication security.</p>
                         
                         <div class="video-container">
@@ -997,7 +1005,6 @@
     </div>
 
     <footer>
-        
         <p>© 2024 Karthikeyani B. All rights reserved.</p>
     </footer>
 
@@ -1024,26 +1031,49 @@
             if (e.target === this) closeCertificate();
         });
 
-        // Project details toggle
-        function toggleDetails(card) {
-            const details = card.querySelector('.project-details');
-            const title = card.querySelector('h3');
-            const isCurrentlyActive = details.classList.contains('active');
+        // Project 1 toggle function
+        function toggleProject1() {
+            const details1 = document.querySelector('.project-details-1');
+            const details2 = document.querySelector('.project-details-2');
+            const title1 = document.querySelector('.project-1 h3');
+            const title2 = document.querySelector('.project-2 h3');
             
-            // First, close ALL project details
-            document.querySelectorAll('.project-details').forEach(detail => {
-                detail.classList.remove('active');
-            });
+            const isOpen = details1.classList.contains('active');
             
-            // Reset ALL project titles to ▼
-            document.querySelectorAll('.project-card h3').forEach(h3 => {
-                h3.innerHTML = h3.innerHTML.replace('▲', '▼');
-            });
+            // Close project 2
+            details2.classList.remove('active');
+            title2.innerHTML = title2.innerHTML.replace('▲', '▼');
             
-            // If the clicked project was closed, open it
-            if (!isCurrentlyActive) {
-                details.classList.add('active');
-                title.innerHTML = title.innerHTML.replace('▼', '▲');
+            // Toggle project 1
+            if (isOpen) {
+                details1.classList.remove('active');
+                title1.innerHTML = title1.innerHTML.replace('▲', '▼');
+            } else {
+                details1.classList.add('active');
+                title1.innerHTML = title1.innerHTML.replace('▼', '▲');
+            }
+        }
+
+        // Project 2 toggle function
+        function toggleProject2() {
+            const details1 = document.querySelector('.project-details-1');
+            const details2 = document.querySelector('.project-details-2');
+            const title1 = document.querySelector('.project-1 h3');
+            const title2 = document.querySelector('.project-2 h3');
+            
+            const isOpen = details2.classList.contains('active');
+            
+            // Close project 1
+            details1.classList.remove('active');
+            title1.innerHTML = title1.innerHTML.replace('▲', '▼');
+            
+            // Toggle project 2
+            if (isOpen) {
+                details2.classList.remove('active');
+                title2.innerHTML = title2.innerHTML.replace('▲', '▼');
+            } else {
+                details2.classList.add('active');
+                title2.innerHTML = title2.innerHTML.replace('▼', '▲');
             }
         }
 
